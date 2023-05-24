@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>{{ customer.username }}'s Profile</h2>
+    <h3>Add Money</h3>
+    <form method="POST" action="{% url 'add_money' customer.id %}">
+      {% csrf_token %}
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" min="0" required><br>
+      <button type="submit">Add Money</button>
+    </form>
+  </div>
+  <div class="container">
+    <h2>Customer Profile</h2>
+    <p>Username: {{ customer.username }}</p>
+    <p>Email: {{ customer.email }}</p>
+
+    <h3>Orders</h3>
+    {% for order in orders %}
+      <h4>Order #{{ order.pk }}</h4>
+      <!-- Display order details -->
+      <p>Order Date: {{ order.order_date }}</p>
+      <p>Total Amount: {{ order.total_amount }}</p>
+      <!-- Add more order details as needed -->
+
+      <!-- Review Form -->
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="order_id" value="{{ order.pk }}">
+        {{ form.as_p }}
+        <button type="submit">Submit Review</button>
+      </form>
+      <hr>
+    {% endfor %}
+    
+    <h3>Address Information</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update Address</button>
+    </form>
+  </div>
+{% endblock %}

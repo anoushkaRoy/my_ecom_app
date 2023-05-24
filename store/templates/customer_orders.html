@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>{{ customer.username }}'s Order History</h2>
+    {% if orders %}
+      <ul>
+        {% for order in orders %}
+          <li>Order ID: {{ order.id }}</li>
+          <li>Order Date: {{ order.date }}</li>
+          <li>Order Total: {{ order.total }}</li>
+          <!-- Display any other relevant order information -->
+          <hr>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No orders found.</p>
+    {% endif %}
+  </div>
+{% endblock %}
