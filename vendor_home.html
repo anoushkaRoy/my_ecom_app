@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>{{ vendor.name }}'s Home page</h2>
+    <a href="{% url 'vendor_items' %}">View Items</a>
+    <!-- Edit button -->
+    <a href="{% url 'your_app_name:edit_item' item_id=item.id %}">Edit</a>
+
+    <h3>Items for Sale</h3>
+    {% if items %}
+      <ul>
+        {% for item in items %}
+          <li>{{ item.name }} - ${{ item.price }}
+            <form method="POST" action="{% url 'delete_item' item.id %}">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No items available.</p>
+    {% endif %}
+
+    <a href="{% url 'sales_report' %}" class="btn btn-primary">Generate Sales Report</a>
+
+
+    
+  </div>
+{% endblock %}

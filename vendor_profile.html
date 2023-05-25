@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Vendor Profile</h2>
+  <h3>{{ vendor.name }}</h3>
+  <p>Email: {{ vendor.email }}</p>
+
+  <h4>Items:</h4>
+  {% for item in items %}
+    <div>
+      <h5>{{ item.name }}</h5>
+      <p>Price: {{ item.price }}</p>
+      <!-- Display other item details as needed -->
+    </div>
+  {% empty %}
+    <p>No items available.</p>
+  {% endfor %}
+{% endblock %}
